@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>U of T</title>
+</head>
+<body>
+
+<h1 style="color:green">This is student information page at U of T</h1>
+<p style="display:inline">Your browser name: </p>
+<b id="bw" style="display:inline"></b>
+<p style="display:inline"> Now: </p>
+<b id="demo" style="display:inline"></b>
+<br><br>
+<b> Please select one of radio button, then click '<button class="button1" onclick="myFunction()">Details</button>' button to see student details.</b>
+<p><font size="16" color="red">Information sorted by</font>: 
+<p style="display:inline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><input type="radio" name="rbutton" id="lastName">  Last name<br>
+<p style="display:inline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><input type="radio" name="rbutton" id="programName">  Program name<br>
+<p style="display:inline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><input type="radio" name="rbutton" id="marks" checked>  Marks
+<br><br><br>
+
+
+
+
+<style type="text/css">
+    .button1 {
+     background:none!important;
+     color:inherit;
+     border:none; 
+     padding:0!important;
+     font: inherit;
+     /*border is optional*/
+     border-bottom:1px solid #444; 
+     cursor: pointer;
+}
+    .btn {
+        background-color:light grey;
+	padding: 20px 60px;
+
+	font-size: 20px;
+	text-align: center;
+	vertical-align: bottom;
+	border: 1px solid black;
+	border-radius: 12px;
+	padding-top:30px;
+	padding-bottom:10px;
+	padding-left:35px;
+    }
+</style>
+<a href="" onclick="myFunction()" id="myLink"><button class="btn">Details</button></a>
+<br>
+
+<input type="submit" value="Details"
+    onclick="myFunction()" />   
+
+
+<script>
+
+
+    function myFunction() {
+   
+        if(document.getElementById('marks').checked) {
+            document.getElementById('myLink').href = "index2.html?0";
+	    window.location='index2.html?0';
+        } else if(document.getElementById('programName').checked) {
+            document.getElementById('myLink').href = "index2.html?1";
+	    window.location='index2.html?1';
+        } else {
+	    document.getElementById('myLink').href = "index2.html?2";
+	    window.location='index2.html?2';
+	}
+	
+    }
+
+
+
+var d = new Date();
+
+
+
+document.getElementById("demo").innerHTML = d.toDateString();
+
+var objappVersion = navigator.appVersion;
+var objAgent = navigator.userAgent;
+var objbrowserName  = navigator.appName;
+var objfullVersion  = ''+parseFloat(navigator.appVersion); 
+var objBrMajorVersion = parseInt(navigator.appVersion,10);
+var objOffsetName,objOffsetVersion,ix;
+
+// In Chrome 
+if ((objOffsetVersion=objAgent.indexOf("Chrome"))!=-1) {
+ objbrowserName = "Chrome";
+ objfullVersion = objAgent.substring(objOffsetVersion+7);
+}
+// In Microsoft internet explorer
+else if ((objOffsetVersion=objAgent.indexOf("MSIE"))!=-1) {
+ objbrowserName = "Microsoft Internet Explorer";
+ objfullVersion = objAgent.substring(objOffsetVersion+5);
+}
+
+// In Firefox
+else if ((objOffsetVersion=objAgent.indexOf("Firefox"))!=-1) {
+ objbrowserName = "Firefox";
+}
+// In Safari 
+else if ((objOffsetVersion=objAgent.indexOf("Safari"))!=-1) {
+ objbrowserName = "Safari";
+ objfullVersion = objAgent.substring(objOffsetVersion+7);
+ if ((objOffsetVersion=objAgent.indexOf("Version"))!=-1) 
+   objfullVersion = objAgent.substring(objOffsetVersion+8);
+}
+// For other browser "name/version" is at the end of userAgent 
+else if ( (objOffsetName=objAgent.lastIndexOf(' ')+1) < 
+          (objOffsetVersion=objAgent.lastIndexOf('/')) ) 
+{
+ objbrowserName = objAgent.substring(objOffsetName,objOffsetVersion);
+ objfullVersion = objAgent.substring(objOffsetVersion+1);
+ if (objbrowserName.toLowerCase()==objbrowserName.toUpperCase()) {
+  objbrowserName = navigator.appName;
+ }
+}
+// trimming the fullVersion string at semicolon/space if present
+if ((ix=objfullVersion.indexOf(";"))!=-1)
+   objfullVersion=objfullVersion.substring(0,ix);
+if ((ix=objfullVersion.indexOf(" "))!=-1)
+   objfullVersion=objfullVersion.substring(0,ix);
+
+objBrMajorVersion = parseInt(''+objfullVersion,10);
+if (isNaN(objBrMajorVersion)) {
+ objfullVersion  = ''+parseFloat(navigator.appVersion); 
+ objBrMajorVersion = parseInt(navigator.appVersion,10);
+}
+
+document.getElementById("bw").innerHTML = objbrowserName + " " + objfullversion;
+
+</script> 
+
+</body>
+</html>

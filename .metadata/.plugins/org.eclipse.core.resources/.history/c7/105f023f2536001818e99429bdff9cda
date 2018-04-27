@@ -1,0 +1,181 @@
+package DW.api;
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class CustomerData {
+	
+	private Connection con;
+	private Statement stmt;
+	
+	public CustomerData() {
+		// Microsoft SQL Server
+		try {
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");  
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		// Connect
+		try {
+			con=DriverManager.getConnection(  
+					"jdbc:sqlserver://DESKTOP-2R4U5AR;databaseName=DbVirtualWallet;integratedSecurity=true;"); 
+			stmt = con.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	}
+	
+	/**
+	 * Finds by customer ID
+	 * @param custID customer ID
+	 * @return Result set
+	 */
+    public ResultSet getByCustID(int custID) {
+    	// Find Customer
+		ResultSet rs = null;
+		try {
+			rs = stmt.executeQuery("select * from tblCustomer where fldCustomerID=" + custID + ";");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        return rs;
+    }
+    
+    
+    /**
+     * Finds by email
+     * @param email customer's email
+     * @return Result Set
+     */
+    public ResultSet getByEmail(String email) {
+    	// Find Customer
+    	ResultSet rs = null;
+		try {
+			rs = stmt.executeQuery("select * from tblCustomer where fldEmail='" + email + "';");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        return rs;
+    }
+    
+    public int updateCust(Customer cust) {
+    	int rs = 0;
+    	
+    	int custID = cust.getCustID();
+    	String fName = cust.getfName();
+    	String lName = cust.getlName();
+    	String email = cust.getEmail();
+    	int phoneNum = cust.getPhoneNum();
+    	int addrID = cust.getAddrID();
+    	String password = cust.getPassword();
+    	
+    	try {
+    		/*
+			rs = stmt.executeUpdate("UPDATE tblCustomer SET fldFirstName='"
+    	+fName+"',fldLastName='"+lName+"',fldEmail='"+email+"',fldPhone="
+					+phoneNum+",fldAddressID="+addrID+",fldPassword='"+password
+					+"' WHERE fldCustomerID="+custID+";");
+			*/
+			rs = stmt.executeUpdate("EXEC UpdateCustomer "
+			+custID+",'"+fName+"','"+lName+"','"+email+"',"+phoneNum+","+addrID+",'"+password+"';");
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   
+    	
+    	
+    	return rs;
+    }
+    
+    
+    public int saveCust(Customer cust) {
+    	int rs = 0;
+    	
+    	String fName = cust.getfName();
+    	String lName = cust.getlName();
+    	String email = cust.getEmail();
+    	int phoneNum = cust.getPhoneNum();
+    	int addrID = cust.getAddrID();
+    	String password = cust.getPassword();
+    	
+    	
+    	
+    	
+    	try {
+			rs = stmt.executeUpdate("EXEC AddCustomer '"
+    	+fName+"','"+lName+"','"+email+"',"+phoneNum+","+addrID+",'"+password+"';");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   
+    	return rs;
+    }
+    
+    
+    public int deleteCust(int custID) {
+    	int rs = 0;
+    	
+
+    	String fName = "dead";
+    	String lName = "dead";
+    	String email = "dead";
+    	int phoneNum = -1;
+    	int addrID = -1;
+    	String password = "dead";
+    	
+    	try {
+    		/*
+			rs = stmt.executeUpdate("UPDATE tblCustomer SET fldFirstName='"
+    	+fName+"',fldLastName='"+lName+"',fldEmail='"+email+"',fldPhone="
+					+phoneNum+",fldAddressID="+addrID+",fldPassword='"+password
+					+"' WHERE fldCustomerID="+custID+";");
+			*/
+			rs = stmt.executeUpdate("EXEC UpdateCustomer "
+			+custID+",'"+fName+"','"+lName+"','"+email+"',"+phoneNum+","+addrID+",'"+password+"';");
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   
+    	
+    	
+    	return rs;
+    }
+    
+	
+    public ResultSet login(String email, String password) {
+    	ResultSet rs = null;
+		try {
+			rs = stmt.executeQuery("select * from tblCustomer where fldEmail='"+email+"' and fldPassword='"+password+"';");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+        return rs;
+    }
+    
+    
+    
+    /**
+     * Close instance
+     */
+    public void closeConnection() {
+    	try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+	
+
+}

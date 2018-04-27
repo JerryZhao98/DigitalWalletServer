@@ -1,0 +1,12 @@
+package DW.api;
+
+public class WalletServiceImpl implements WalletService{
+
+	@Override
+	public Wallet retrieveWallet(int custID) {
+		Wallet tempWal = new Wallet();
+		
+		return null;
+	}
+
+}

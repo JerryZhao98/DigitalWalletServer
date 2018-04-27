@@ -1,0 +1,44 @@
+package DW.api;
+
+public class Card {
+	private int serial;
+	private int custID;
+	private String cardNum;
+	private String name;
+	private String cardTyp;
+	private int instID;
+	private String expDt;
+	private String secCode;
+	private String createDt;
+	private String updateDt;
+
+	Card() {
+		this.serial = 0;
+		this.custID = 0;
+		this.cardNum = "";
+		this.name = "";
+		this.cardTyp = "";
+		this.instID = 0;
+		this.expDt = "";
+		this.secCode = "";
+		this.createDt = "";
+		this.updateDt = "";
+
+	}
+	
+	Card(int serial, int custID, String cardNum, String name, String cardTyp,
+			int instID, String expDt, String secCode, String createDt, String updateDt) {
+		this.serial = serial;
+		this.custID = custID;
+		this.cardNum = cardNum;
+		this.name = name;
+		this.cardTyp = cardTyp;
+		this.instID = instID;
+		this.expDt = expDt;
+		this.secCode = secCode;
+		this.createDt = createDt;
+		this.updateDt = updateDt;
+	}
+
+	
+}

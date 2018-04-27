@@ -1,0 +1,8 @@
+INDEX VERSION 1.4+E:\DigitalWalletWS\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+4074466843.index
+128785489.index
+3086259605.index
+741641966.index
+1047545376.index
+1758506545.index
+2062559989.index
